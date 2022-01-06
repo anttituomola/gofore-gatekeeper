@@ -1,164 +1,139 @@
-const canvas = document.getElementById("lostRobot")
+const lostRobot = document.getElementById("lostRobot")
 const canvasFill = lostRobot.getContext("2d")
-let copyPaste = `
-##################################################
-#................................................#
-#.......................#............#...........#
-#..................#......#................#.....#
-#.............................................#..#
-#......................#.........................#
-#.................................#..........#...#
-#.............................................#..#
-#...........#.....#..............................#
-#.......................#........#...........#...#
-#............................#............#......#
-#.................#.................#............#
-#..........................................#.....#
-#................................................#
-#................................................#
-#................................................#
-#..........#..........................#..........#
-#..................................#..........#..#
-#...................#.......#....................#
-#.................E..........................#...#
-#................................................#
-#...................................#............#
-#.........................................#......#
-#..................#.............................#
-#.................S.#....#...........#...........#
-#..........................#................#....#
-#..................#....#........................#
-#......................#..#......................#
-#................................................#
-##################################################`
 
-//remove line breaks from the content to get real length
-const trimmedCanvasContent = copyPaste.replace(/(\r\n|\n|\r)/gm, "")
-const canvasArray = trimmedCanvasContent.split("")
+document.getElementById("inputButton").addEventListener("click", getInput)
 
-const boardBorder = "red"
-const boardFill = "grey"
-const robotFill = "red"
-const obstacleColor = "purple"
-let canvasWidth = trimmedCanvasContent.length / 3
-let canvasHeight = trimmedCanvasContent.length / 5
+// Initial values
+let canvasWidth = 0
+let canvasHeight = 0
 let startingPoint = 0
 let robotDirection = "up"
-let robotLocation
 let count = 0
+const squareSide = 10
+const colums = 50
+const rows = 30
+let canvasId = 0
 
+function getInput() {
+    const inputValue = document.getElementById("inputCanvas").value
 
-drawCanvas()
+    // Remove line breaks from the content to get real length
+    const trimmedCanvasContent = inputValue.replace(/(\r\n|\n|\r)/gm, "")
+    let canvasArray = trimmedCanvasContent.split("")
 
-function drawCanvas() {
+    // Get the ID out of the input
+    canvasId = canvasArray.slice(0, 7)
+
+    // Get the canvas out of the input
+    canvasArray = canvasArray.splice(7, canvasArray.length)
+
+    canvasWidth = canvasArray.length / (rows / squareSide)
+    canvasHeight = canvasArray.length / (colums / squareSide)
+
+    drawCanvas(canvasArray, canvasId)
+}
+
+function drawCanvas(canvasArray) {
     let x = 0
     let y = 0
     let drawIndex = 0
 
-    while (drawIndex < trimmedCanvasContent.length) {
+    while (drawIndex < canvasArray.length) {
         for (const el of canvasArray) {
             if (el === ".") {
-                canvasFill.fillStyle = boardFill
-                canvasFill.fillRect(x, y, 10, 10)
-                canvasFill.strokeRect(x, y, 10, 10)
-            }
-            else if (el === "#") {
-                canvasFill.fillStyle = obstacleColor
-                canvasFill.fillRect(x, y, 10, 10)
-                canvasFill.strokeRect(x, y, 10, 10)
-            }
-            else if (el === "S") {
+                canvasFill.fillStyle = "grey"
+                canvasFill.fillRect(x, y, squareSide, squareSide)
+                canvasFill.strokeRect(x, y, squareSide, squareSide)
+            } else if (el === "#") {
+                canvasFill.fillStyle = "purple"
+                canvasFill.fillRect(x, y, squareSide, squareSide)
+                canvasFill.strokeRect(x, y, squareSide, squareSide)
+            } else if (el === "S") {
                 canvasFill.fillStyle = "green"
-                canvasFill.fillRect(x, y, 10, 10)
-                canvasFill.strokeRect(x, y, 10, 10)
+                canvasFill.fillRect(x, y, squareSide, squareSide)
+                canvasFill.strokeRect(x, y, squareSide, squareSide)
                 startingPoint = drawIndex
-            }
-            else if (el === "E") {
+            } else if (el === "E") {
                 canvasFill.fillStyle = "pink"
-                canvasFill.fillRect(x, y, 10, 10)
-                canvasFill.strokeRect(x, y, 10, 10)
+                canvasFill.fillRect(x, y, squareSide, squareSide)
+                canvasFill.strokeRect(x, y, squareSide, squareSide)
             }
 
-            x += 10
+            x += squareSide
             drawIndex++
             if (x === canvasWidth && y !== canvasHeight) {
-                y += 10
+                y += squareSide
                 x = 0
             }
         }
     }
-    decideRobotAction(startingPoint)
+    decideRobotAction(startingPoint, canvasArray, canvasId)
 }
 
 // What's under the robot now?
-function decideRobotAction(robotLocation) {
+function decideRobotAction(robotLocation, canvasArray) {
     if (canvasArray[robotLocation] === ".") {
-        moveRobot(robotLocation)
-    }
-    else if (canvasArray[robotLocation] === "#") {
-        turnRobot(robotLocation)
-    }
-    else if (canvasArray[robotLocation] === "S") {
-        moveRobot(robotLocation)
-    }
-    else if (canvasArray[robotLocation] === "E") {
-        console.log(count)
-        return count
+        moveRobot(robotLocation, canvasArray)
+    } else if (canvasArray[robotLocation] === "#") {
+        turnRobot(robotLocation, canvasArray)
+    } else if (canvasArray[robotLocation] === "S") {
+        moveRobot(robotLocation, canvasArray)
+    } else if (canvasArray[robotLocation] === "E") {
+        const canvasIdString = canvasId.join("")
+
+        document.getElementById("answer").innerHTML = `
+        <h1>Steps needed: ${count}</h1>
+        <p>Copy the aswer: ${canvasIdString}:${count}</p>
+        `
     }
 }
 
+
 // Move robot
-function moveRobot(robotLocation) {
-    if (count < 1000) {
+function moveRobot(robotLocation, canvasArray) {
+    if (count < 10000) {
         if (robotDirection === "up") {
-            robotLocation -= 50
-        }
-        else if (robotDirection === "right") {
+            robotLocation -= colums
+        } else if (robotDirection === "right") {
             robotLocation += 1
-        }
-        else if (robotDirection === "down") {
-            robotLocation += 50
-        }
-        else if (robotDirection === "left") {
+        } else if (robotDirection === "down") {
+            robotLocation += colums
+        } else if (robotDirection === "left") {
             robotLocation -= 1
         }
         count++
-        figureOutLocationFromIndex(robotLocation)
-        decideRobotAction(robotLocation)
+        figureOutLocationFromIndex(robotLocation, canvasArray)
+        decideRobotAction(robotLocation, canvasArray)
     } else if (count >= 1000) {
-        console.log(`Tried ${count} times, no luck!`)
+        document.getElementById("answer").innerHTML = `Tried ${count} times, no luck!`
     }
 }
 
 // Turn robot
-function turnRobot(robotLocation) {
+function turnRobot(robotLocation, canvasArray) {
     if (robotDirection === "up") {
         robotDirection = "right"
-    }
-    else if (robotDirection === "right") {
+    } else if (robotDirection === "right") {
         robotDirection = "down"
-    }
-    else if (robotDirection === "down") {
+    } else if (robotDirection === "down") {
         robotDirection = "left"
-    }
-    else if (robotDirection === "left") {
+    } else if (robotDirection === "left") {
         robotDirection = "up"
     }
-    moveRobot(robotLocation)
+    moveRobot(robotLocation, canvasArray)
 }
 
 
-
+// Turn index into location coordinates
 function figureOutLocationFromIndex(index) {
-    const rows = 30
-    const colums = 50
-    let x = 0 
+    let x = 0
     let y = 0
     const remainder = index % colums
     const rowCount = (index - remainder) / colums
-    y = rowCount * 10
-    x = remainder * 10
+
+    y = rowCount * squareSide
+    x = remainder * squareSide
     canvasFill.fillStyle = "black"
-    canvasFill.fillRect(x, y, 10, 10)
-    canvasFill.strokeRect(x, y, 10, 10)
+    canvasFill.fillRect(x, y, squareSide, squareSide)
+    canvasFill.strokeRect(x, y, squareSide, squareSide)
 }

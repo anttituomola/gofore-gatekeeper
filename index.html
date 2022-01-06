@@ -5,9 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gofore Gategeeper game</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <canvas id="lostRobot" width="500" height="300"></canvas>
+    <div id="container">
+        <div id="input">
+            <textarea id="inputCanvas" placeholder="copy the whole map to this field, include the 7-number ID as well!"></textarea>
+            <button id="inputButton">Process</button>
+        </div>
+        <canvas id="lostRobot" width="500" height="300"></canvas>
+    </div>
+    <div id="answer"></div>
     <script type="module" src="./test.js"></script>
 </body>
 </html>
