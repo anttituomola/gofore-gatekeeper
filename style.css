@@ -3,7 +3,7 @@ body {
 }
 
 #container {
-    width: 50%;
+    width: 100%;
 }
 
 #input {
@@ -21,4 +21,8 @@ body {
 
 #container {
     display: flex;
+}
+
+#lostRobot {
+    width: 50%;
 }
