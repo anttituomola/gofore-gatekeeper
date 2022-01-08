@@ -16,16 +16,20 @@ export default class MoveRobot {
             this.turnRobot(robotLocation, canvasArray, canvasId)
         } else if (canvasArray[robotLocation] === "S") {
             robotPath.push(robotLocation)
+            console.log("starting point:", robotLocation)
             this.moveRobot(startingPoint, canvasArray, canvasId)
         } else if (canvasArray[robotLocation] === "E") {
             robotPath.push(robotLocation)
+            console.log("Finnish:", robotLocation)
             const canvasIdString = canvasId.join("")
 
             document.getElementById("answer").innerHTML = `
             <h1>Steps needed: ${count}</h1>
             <p>Copy the aswer: ${canvasIdString}:${count}</p>
             `
-            this.drawRobotPath(robotPath)
+            console.log("total count:", count)
+            const drawPath = robotPath.slice(1)
+            this.drawRobotPath(drawPath)
         }
     }
 
@@ -46,6 +50,9 @@ export default class MoveRobot {
             this.decideRobotAction(robotLocation, canvasArray, canvasId)
         } else if (count >= maxTries) {
             document.getElementById("answer").innerHTML = `Tried ${count} times, no luck!`
+            count = 0
+            robotDirection = "up"
+            robotPath = []
         }
     }
 
@@ -79,9 +86,9 @@ export default class MoveRobot {
                 canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
             }, index * 10)
         })
+        console.log(path)
         count = 0
         robotDirection = "up"
         robotPath = []
-
     }
 }
