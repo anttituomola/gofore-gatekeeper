@@ -1,7 +1,9 @@
 import MoveRobot from "./MoveRobot.js"
+const robot = new MoveRobot()
 
 const lostRobot = document.getElementById("lostRobot")
-const canvasFill = lostRobot.getContext("2d")
+
+export const canvasFill = lostRobot.getContext("2d")
 
 export let startingPoint = 0
 
@@ -12,7 +14,6 @@ export const columns = 50
 
 export default class Draw {
     drawCanvas(canvasArray, canvasId, canvasHeight, canvasWidth) {
-        const robot = new MoveRobot()
 
         let xLocation = 0
         let yLocation = 0
@@ -48,19 +49,6 @@ export default class Draw {
             }
         }
         robot.decideRobotAction(startingPoint, canvasArray, canvasId)
-    }
-
-    // Turn index into location coordinates and draw robot path
-    drawRobotPath(index) {
-        const remainder = index % columns
-        const rowCount = (index - remainder) / columns
-
-        let yLocation = rowCount * squareSide
-        let xLocation = remainder * squareSide
-
-        canvasFill.fillStyle = "black"
-        canvasFill.fillRect(xLocation, yLocation, squareSide, squareSide)
-        canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
     }
 }
 
