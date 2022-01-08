@@ -22,20 +22,20 @@ export default class Draw {
         while (drawIndex < canvasArray.length) {
             for (const el of canvasArray) {
                 if (el === ".") {
-                    canvasFill.fillStyle = "grey"
+                    canvasFill.fillStyle = "#f3f6f7"
                     canvasFill.fillRect(xLocation, yLocation, squareSide, squareSide)
                     canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
                 } else if (el === "#") {
-                    canvasFill.fillStyle = "purple"
+                    canvasFill.fillStyle = "#fed1e5"
                     canvasFill.fillRect(xLocation, yLocation, squareSide, squareSide)
                     canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
                 } else if (el === "S") {
-                    canvasFill.fillStyle = "green"
+                    canvasFill.fillStyle = "#325c79"
                     canvasFill.fillRect(xLocation, yLocation, squareSide, squareSide)
                     canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
                     startingPoint = drawIndex
                 } else if (el === "E") {
-                    canvasFill.fillStyle = "pink"
+                    canvasFill.fillStyle = "#ff7200"
                     canvasFill.fillRect(xLocation, yLocation, squareSide, squareSide)
                     canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
                 }

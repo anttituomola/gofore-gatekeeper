@@ -5,6 +5,29 @@ let robotDirection = "up"
 let robotPath = []
 
 export default class MoveRobot {
+    // What's under the robot now?
+    decideRobotAction(robotLocation, canvasArray, canvasId) {
+        if (canvasArray[robotLocation] === ".") {
+            robotPath.push(robotLocation)
+            this.moveRobot(robotLocation, canvasArray, canvasId)
+        } else if (canvasArray[robotLocation] === "#") {
+            robotPath.push(robotLocation)
+            this.turnRobot(robotLocation, canvasArray, canvasId)
+        } else if (canvasArray[robotLocation] === "S") {
+            robotPath.push(robotLocation)
+            this.moveRobot(startingPoint, canvasArray, canvasId)
+        } else if (canvasArray[robotLocation] === "E") {
+            robotPath.push(robotLocation)
+            const canvasIdString = canvasId.join("")
+
+            document.getElementById("answer").innerHTML = `
+            <h1>Steps needed: ${count}</h1>
+            <p>Copy the aswer: ${canvasIdString}:${count}</p>
+            `
+            this.drawRobotPath(robotPath)
+        }
+    }
+
     // Move robot
     moveRobot(robotLocation, canvasArray, canvasId) {
         if (count < 4000 || canvasArray[robotLocation === "E"]) {
@@ -35,34 +58,10 @@ export default class MoveRobot {
             robotDirection = "left"
         } else if (robotDirection === "left") {
             robotDirection = "up"
-        } else {
-            console.log("we're lost")
         }
         this.moveRobot(robotLocation, canvasArray, canvasId)
     }
 
-    // What's under the robot now?
-    decideRobotAction(robotLocation, canvasArray, canvasId) {
-        if (canvasArray[robotLocation] === ".") {
-            robotPath.push(robotLocation)
-            this.moveRobot(robotLocation, canvasArray, canvasId)
-        } else if (canvasArray[robotLocation] === "#") {
-            robotPath.push(robotLocation)
-            this.turnRobot(robotLocation, canvasArray, canvasId)
-        } else if (canvasArray[robotLocation] === "S") {
-            robotPath.push(robotLocation)
-            this.moveRobot(startingPoint, canvasArray, canvasId)
-        } else if (canvasArray[robotLocation] === "E") {
-            robotPath.push(robotLocation)
-            const canvasIdString = canvasId.join("")
-
-            document.getElementById("answer").innerHTML = `
-            <h1>Steps needed: ${count}</h1>
-            <p>Copy the aswer: ${canvasIdString}:${count}</p>
-            `
-            this.drawRobotPath(robotPath)
-        }
-    }
 
     // Turn index into location coordinates and draw robot path
     drawRobotPath(path) {

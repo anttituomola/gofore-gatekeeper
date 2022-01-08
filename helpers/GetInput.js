@@ -8,7 +8,7 @@ export default class GetInput {
     getInput() {
         // Remove line breaks from the content to get real length
         const inputValue = document.getElementById("inputCanvas").value
-        const trimmedCanvasContent = inputValue.replace(/(\r\n|\n|\r)/gm, "")
+        const trimmedCanvasContent = inputValue.replace(/(\r\n|\n|\r)/gmu, "")
         let canvasArray = trimmedCanvasContent.split("")
 
         // Get the ID out of the input

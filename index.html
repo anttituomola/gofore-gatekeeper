@@ -6,16 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gofore Gategeeper game</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="container">
         <div id="input">
-            <textarea id="inputCanvas" placeholder="copy the whole map to this field, include the 7-number ID as well!"></textarea>
+            <h3>Go to <a href="https://gofore.com/junior-developer-assignment/" target="_blank">Gofore assignment site</a>, copy the map and paste it below.</h3>
+            <textarea id="inputCanvas" placeholder="copy the whole map to this field, include the 7-number ID!"></textarea>
             <button id="inputButton">Process</button>
+            <div id="answer"></div>
         </div>
         <canvas id="lostRobot" width="500" height="300"></canvas>
     </div>
-    <div id="answer"></div>
     <script type="module" src="./App.js"></script>
 </body>
 </html>
