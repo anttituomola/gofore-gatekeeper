@@ -15,6 +15,7 @@ body {
     padding: 1em;
     margin: 2em;
     align-items: center;
+
 }
 
 #inputCanvas {
@@ -47,13 +48,10 @@ body {
     transform: scale(0.95) 
 }
 
-#container {
-    display: flex;
-}
-
 #lostRobot {
     width: 30%;
     height: 30%;
+    margin-top: 4em;
 }
 
 #answer {
