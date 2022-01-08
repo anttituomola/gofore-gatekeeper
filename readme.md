@@ -1,6 +1,6 @@
 README
 
-This is a assignment for junior developer position at Gofore. The original assignment can be found here: https://gofore.com/junior-developer-assignment/
+This is an assignment for junior developer position at Gofore. The original assignment can be found here: https://gofore.com/junior-developer-assignment/
 Please do not use this for your own application, as it probably will do you disservice.
 
 It's a snake game with a few variations:
