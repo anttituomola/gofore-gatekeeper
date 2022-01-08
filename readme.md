@@ -1,5 +1,11 @@
 README
 
+This is a assignment for junior developer position at Gofore. The original assignment can be found here: https://gofore.com/junior-developer-assignment/
+Please do not use this for your own application, as it probably will do you disservice.
+
+LIVE DEMO
+There's a live demo available at https://www.anttituomola.fi/gofore-assignment
+
 It's a snake game with a few variations:
 - there's only head of a snake (the robot)
 - the canvas is not empty when started, but there are obstacles with similar rules to edge borders
@@ -45,5 +51,3 @@ EXAMPLE OF CANVAS DATA
 #................................................#
 #................................................#
 ##################################################
-
-- the canvas is always fixed in size: 50 X 30, so there's always 1500 pixels

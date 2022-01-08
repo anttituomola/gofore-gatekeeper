@@ -3,6 +3,7 @@ import { canvasFill, columns, squareSide, startingPoint } from "./Draw.js"
 let count = 0
 let robotDirection = "up"
 let robotPath = []
+const maxTries = 5000 // No specific reason for this number, just on top of my head
 
 export default class MoveRobot {
     // What's under the robot now?
@@ -30,7 +31,7 @@ export default class MoveRobot {
 
     // Move robot
     moveRobot(robotLocation, canvasArray, canvasId) {
-        if (count < 4000 || canvasArray[robotLocation === "E"]) {
+        if (count < maxTries || canvasArray[robotLocation === "E"]) {
             if (robotDirection === "up") {
                 robotLocation -= columns
             } else if (robotDirection === "right") {
@@ -43,7 +44,7 @@ export default class MoveRobot {
             count++
 
             this.decideRobotAction(robotLocation, canvasArray, canvasId)
-        } else if (count >= 4000) {
+        } else if (count >= maxTries) {
             document.getElementById("answer").innerHTML = `Tried ${count} times, no luck!`
         }
     }
