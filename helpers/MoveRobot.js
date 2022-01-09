@@ -11,8 +11,17 @@ export default class MoveRobot {
         if (canvasArray[robotLocation] === ".") {
             robotPath.push(robotLocation)
             this.moveRobot(robotLocation, canvasArray, canvasId)
+        // If steps on obstacle, go back
         } else if (canvasArray[robotLocation] === "#") {
-            robotPath.push(robotLocation)
+            if (robotDirection === "up") {
+                robotLocation += columns
+            } else if (robotDirection === "right") {
+                robotLocation -= 1
+            } else if (robotDirection === "down") {
+                robotLocation -= columns
+            } else if (robotDirection === "left") {
+                robotLocation += 1
+            }
             this.turnRobot(robotLocation, canvasArray, canvasId)
         } else if (canvasArray[robotLocation] === "S") {
             robotPath.push(robotLocation)
