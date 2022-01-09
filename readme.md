@@ -22,6 +22,7 @@ RULES
 - Make a note of the MAP_CODE in the first line, you'll need it in answer
 
 EXAMPLE OF CANVAS DATA
+
 ##################################################
 #...#..................................#.........#
 #.......#.................................#......#
