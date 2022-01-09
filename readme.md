@@ -9,6 +9,7 @@ It's a snake game with a few variations:
 - I must be able to copy-paste the canvas to a variable and convert it to the game canvas from there
 
 LIVE DEMO
+
 There's a live demo available at https://www.anttituomola.fi/gofore-assignment
 
 RULES
