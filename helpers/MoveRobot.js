@@ -3,6 +3,7 @@ import { canvasFill, columns, squareSide, startingPoint } from "./Draw.js"
 let count = 0
 let robotDirection = "up"
 let robotPath = []
+let tries = 0
 const maxTries = 5000 // No specific reason for this number, just on top of my head
 
 export default class MoveRobot {
@@ -32,19 +33,19 @@ export default class MoveRobot {
             console.log("Finnish:", robotLocation)
             const canvasIdString = canvasId.join("")
 
-            document.getElementById("answer").innerHTML = `
-            <h1>Steps needed: ${count}</h1>
-            <p>Copy the aswer: ${canvasIdString}:${count}</p>
-            `
-            console.log("total count:", count)
             const drawPath = robotPath.slice(1)
+            document.getElementById("answer").innerHTML = `
+            <h1>Steps needed: ${drawPath.length}</h1>
+            <p>Copy the aswer: ${canvasIdString}:${drawPath.length}</p>
+            `
+            console.log("total count:", robotPath.length)
             this.drawRobotPath(drawPath)
         }
     }
 
     // Move robot
     moveRobot(robotLocation, canvasArray, canvasId) {
-        if (count < maxTries || canvasArray[robotLocation === "E"]) {
+        if (tries < maxTries || canvasArray[robotLocation === "E"]) {
             if (robotDirection === "up") {
                 robotLocation -= columns
             } else if (robotDirection === "right") {
@@ -54,12 +55,12 @@ export default class MoveRobot {
             } else if (robotDirection === "left") {
                 robotLocation -= 1
             }
-            count++
+
+            tries++
 
             this.decideRobotAction(robotLocation, canvasArray, canvasId)
-        } else if (count >= maxTries) {
-            document.getElementById("answer").innerHTML = `Tried ${count} times, no luck!`
-            count = 0
+        } else if (drawPath.length >= maxTries) {
+            document.getElementById("answer").innerHTML = `Tried ${drawPath.length} times, no luck!`
             robotDirection = "up"
             robotPath = []
         }
@@ -96,7 +97,6 @@ export default class MoveRobot {
             }, index * 10)
         })
         console.log(path)
-        count = 0
         robotDirection = "up"
         robotPath = []
     }
