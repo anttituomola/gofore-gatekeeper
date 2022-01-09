@@ -6,7 +6,7 @@ Please do not use this for your own application, as it probably will do you diss
 It's a snake game with a few variations:
 - there's only head of a snake (the robot)
 - the canvas is not empty when started, but there are obstacles with similar rules to edge borders
-- I must be able to copy-paste the canvas to a variable and convert it to the game canvas from there
+- I'd like to be able to copy-paste the canvas to a variable and convert it to the game canvas
 
 LIVE DEMO
 
