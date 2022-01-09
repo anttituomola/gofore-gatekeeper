@@ -1,6 +1,5 @@
 import { canvasFill, columns, squareSide, startingPoint } from "./Draw.js"
 
-let count = 0
 let robotDirection = "up"
 let robotPath = []
 let tries = 0
@@ -26,11 +25,9 @@ export default class MoveRobot {
             this.turnRobot(robotLocation, canvasArray, canvasId)
         } else if (canvasArray[robotLocation] === "S") {
             robotPath.push(robotLocation)
-            console.log("starting point:", robotLocation)
             this.moveRobot(startingPoint, canvasArray, canvasId)
         } else if (canvasArray[robotLocation] === "E") {
             robotPath.push(robotLocation)
-            console.log("Finnish:", robotLocation)
             const canvasIdString = canvasId.join("")
 
             const drawPath = robotPath.slice(1)
@@ -38,7 +35,6 @@ export default class MoveRobot {
             <h1>Steps needed: ${drawPath.length}</h1>
             <p>Copy the aswer: ${canvasIdString}:${drawPath.length}</p>
             `
-            console.log("total count:", robotPath.length)
             this.drawRobotPath(drawPath)
         }
     }
@@ -96,7 +92,6 @@ export default class MoveRobot {
                 canvasFill.strokeRect(xLocation, yLocation, squareSide, squareSide)
             }, index * 10)
         })
-        console.log(path)
         robotDirection = "up"
         robotPath = []
     }
